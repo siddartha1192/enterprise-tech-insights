@@ -48,6 +48,23 @@
     --gradient-primary: linear-gradient(135deg, hsl(145, 80%, 50%), hsl(170, 70%, 45%));
     --gradient-subtle: linear-gradient(180deg, hsl(0, 0%, 7%), hsl(0, 0%, 4%));
     --shadow-glow: 0 0 40px -10px hsl(145 80% 50% / 0.15);
+
+    /* Hero multicolored gradient system */
+    --hero-gradient: linear-gradient(
+      135deg,
+      hsl(265, 89%, 55%) 0%,
+      hsl(290, 80%, 45%) 15%,
+      hsl(330, 85%, 50%) 30%,
+      hsl(350, 90%, 55%) 45%,
+      hsl(25, 95%, 55%) 60%,
+      hsl(45, 90%, 50%) 75%,
+      hsl(170, 80%, 45%) 90%,
+      hsl(200, 85%, 50%) 100%
+    );
+    --hero-orb-1: radial-gradient(circle at 20% 50%, hsl(265, 89%, 55% / 0.35) 0%, transparent 50%);
+    --hero-orb-2: radial-gradient(circle at 80% 20%, hsl(330, 85%, 50% / 0.3) 0%, transparent 50%);
+    --hero-orb-3: radial-gradient(circle at 60% 80%, hsl(200, 85%, 50% / 0.25) 0%, transparent 50%);
+    --hero-orb-4: radial-gradient(circle at 30% 20%, hsl(45, 90%, 50% / 0.2) 0%, transparent 50%);
   }
 }
 
@@ -88,4 +105,226 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+}
+
+/* ── Hero Gradient Background System ── */
+
+@keyframes hero-gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 100%;
+  }
+}
+
+@keyframes orb-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -25px) scale(1.05); }
+  66% { transform: translate(-20px, 15px) scale(0.95); }
+}
+
+@keyframes orb-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-25px, 20px) scale(1.1); }
+  66% { transform: translate(15px, -30px) scale(0.9); }
+}
+
+@keyframes orb-float-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, 20px) scale(1.08); }
+}
+
+@keyframes grain-drift {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -2%); }
+  30% { transform: translate(1%, -1%); }
+  50% { transform: translate(-1%, 2%); }
+  70% { transform: translate(2%, 1%); }
+  90% { transform: translate(-2%, 1%); }
+}
+
+.hero-gradient-bg {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  isolation: isolate;
+}
+
+/* Animated mesh base gradient */
+.hero-gradient-bg::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    135deg,
+    hsl(265, 89%, 18%) 0%,
+    hsl(290, 70%, 15%) 12%,
+    hsl(330, 75%, 18%) 25%,
+    hsl(350, 80%, 20%) 37%,
+    hsl(25, 85%, 18%) 50%,
+    hsl(45, 80%, 17%) 62%,
+    hsl(170, 70%, 15%) 75%,
+    hsl(200, 75%, 18%) 87%,
+    hsl(265, 89%, 18%) 100%
+  );
+  background-size: 200% 200%;
+  animation: hero-gradient-shift 15s ease infinite;
+  z-index: -3;
+}
+
+/* Noise / grain texture overlay */
+.hero-gradient-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+  animation: grain-drift 8s steps(10) infinite;
+  opacity: 0.5;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Floating gradient orbs */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hero-orb--violet {
+  width: 400px;
+  height: 400px;
+  top: -10%;
+  left: -5%;
+  background: hsl(265, 89%, 55% / 0.3);
+  animation: orb-float-1 12s ease-in-out infinite;
+}
+
+.hero-orb--rose {
+  width: 350px;
+  height: 350px;
+  top: -15%;
+  right: -5%;
+  background: hsl(330, 85%, 50% / 0.25);
+  animation: orb-float-2 14s ease-in-out infinite;
+}
+
+.hero-orb--cyan {
+  width: 300px;
+  height: 300px;
+  bottom: -10%;
+  right: 15%;
+  background: hsl(200, 85%, 50% / 0.2);
+  animation: orb-float-3 10s ease-in-out infinite;
+}
+
+.hero-orb--amber {
+  width: 250px;
+  height: 250px;
+  bottom: -5%;
+  left: 10%;
+  background: hsl(45, 90%, 50% / 0.18);
+  animation: orb-float-2 16s ease-in-out infinite reverse;
+}
+
+.hero-orb--emerald {
+  width: 280px;
+  height: 280px;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: hsl(145, 80%, 50% / 0.15);
+  animation: orb-float-1 18s ease-in-out infinite reverse;
+}
+
+/* Inner vignette for depth */
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    hsl(0, 0%, 4% / 0.6) 100%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Top edge fade into page background */
+.hero-fade-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, hsl(0, 0%, 4%), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Bottom edge fade into page background */
+.hero-fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to top, hsl(0, 0%, 4%), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Border glow effect */
+.hero-border-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 1.5rem;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    hsl(265, 89%, 55% / 0.3),
+    hsl(330, 85%, 50% / 0.2),
+    transparent 40%,
+    transparent 60%,
+    hsl(200, 85%, 50% / 0.2),
+    hsl(145, 80%, 50% / 0.3)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Multicolor text gradient for hero heading */
+.text-gradient-hero {
+  background: linear-gradient(
+    135deg,
+    hsl(265, 89%, 70%) 0%,
+    hsl(330, 85%, 65%) 25%,
+    hsl(25, 95%, 65%) 50%,
+    hsl(45, 90%, 60%) 75%,
+    hsl(170, 80%, 55%) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hero-gradient-shift 8s linear infinite;
 }

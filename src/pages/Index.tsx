@@ -13,17 +13,39 @@ const Index = () => {
       <BlogHeader />
 
       <main className="flex-1 container mx-auto px-6 py-12 max-w-4xl">
-        {/* Hero */}
-        <section className="mb-14">
-          <p className="text-sm font-mono text-primary mb-3 tracking-wide uppercase">Engineering Blog</p>
-          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-foreground mb-4">
-            Thoughts on building
-            <br />
-            <span className="text-gradient">software that scales.</span>
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-xl">
-            Deep dives into systems design, infrastructure, developer tooling, and the craft of engineering.
-          </p>
+        {/* Hero — Multicolored Gradient */}
+        <section className="hero-gradient-bg mb-14 px-8 py-16 md:px-12 md:py-20 relative">
+          {/* Floating gradient orbs */}
+          <div className="hero-orb hero-orb--violet" aria-hidden="true" />
+          <div className="hero-orb hero-orb--rose" aria-hidden="true" />
+          <div className="hero-orb hero-orb--cyan" aria-hidden="true" />
+          <div className="hero-orb hero-orb--amber" aria-hidden="true" />
+          <div className="hero-orb hero-orb--emerald" aria-hidden="true" />
+
+          {/* Edge fades */}
+          <div className="hero-fade-top" aria-hidden="true" />
+          <div className="hero-fade-bottom" aria-hidden="true" />
+
+          {/* Inner vignette */}
+          <div className="hero-vignette" aria-hidden="true" />
+
+          {/* Border glow */}
+          <div className="hero-border-glow" aria-hidden="true" />
+
+          {/* Content */}
+          <div className="relative z-10">
+            <p className="text-sm font-mono text-white/70 mb-3 tracking-wide uppercase">
+              Engineering Blog
+            </p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-white mb-5">
+              Thoughts on building
+              <br />
+              <span className="text-gradient-hero">software that scales.</span>
+            </h1>
+            <p className="text-lg md:text-xl text-white/60 max-w-xl leading-relaxed">
+              Deep dives into systems design, infrastructure, developer tooling, and the craft of engineering.
+            </p>
+          </div>
         </section>
 
         {/* Featured */}
