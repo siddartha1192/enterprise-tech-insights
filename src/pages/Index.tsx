@@ -2,6 +2,7 @@ import BlogHeader from "@/components/BlogHeader";
 import BlogFooter from "@/components/BlogFooter";
 import FeaturedPost from "@/components/FeaturedPost";
 import PostCard from "@/components/PostCard";
+import ChatBot from "@/components/ChatBot";
 import { posts } from "@/data/posts";
 
 const Index = () => {
@@ -69,6 +70,7 @@ const Index = () => {
       </main>
 
       <BlogFooter />
+      <ChatBot />
     </div>
   );
 };
